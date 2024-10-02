@@ -48,5 +48,43 @@ namespace MVCTest.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpGet("edit")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var user =  await context.UserTable.FirstOrDefaultAsync(x=> x.id == id);
+            return PartialView("usersModalPartial", user);
+        }
+
+        [HttpPost("edit")]
+        public async Task<IActionResult> Edit(Users user)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingUser = await context.UserTable.FirstOrDefaultAsync(x => x.id == user.id);
+                if (existingUser != null)
+                {
+                    existingUser.username = user.username;
+                    existingUser.phone = user.phone;
+                    existingUser.email = user.email;
+                    await context.SaveChangesAsync();
+                }
+                return RedirectToAction("Index");
+            }
+            return PartialView("usersModalPartial", user);
+        }
+
+        [HttpPost("delete")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var userToDelete = await context.UserTable.FirstOrDefaultAsync(x=> x.id == id);
+            if (userToDelete != null)
+            {
+                context.UserTable.Remove(userToDelete);
+                await context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
+        }
+        
     }
 }

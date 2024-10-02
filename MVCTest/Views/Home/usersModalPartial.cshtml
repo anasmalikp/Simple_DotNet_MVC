@@ -4,14 +4,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="addUserLabel" >Add User</h4>
+                <h4 class="modal-title" id="addUserLabel" >@(Model.id==0?"Add User":"Edit User")</h4>
                 <button type="button" class="close" data-dismiss="modal">
                     <span>X</span>
                 </button>
             </div>
 
             <div class="modal-body">
-                <form action="Home/Create" method="post">
+                <form action="@(Model.id==0 ? Url.Action("Create") : Url.Action("Edit", new{id=Model.id}))" method="post">
                     <div class="form-group">
                         <label asp-for="username">Username</label>
                         <input asp-for="username" name="username" class="form-control" />
@@ -32,9 +32,9 @@
                 </form>
             </div>
             
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-save="modal">Save</button>
+            <div class="modal-footer"
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">Close</button>
+                <button type="button" class="btn btn-primary" data-save="modal">@(Model.id==0?"Save":"Edit")</button>
             </div>
         </div>
     </div>

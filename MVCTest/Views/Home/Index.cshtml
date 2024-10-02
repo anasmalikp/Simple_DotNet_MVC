@@ -16,6 +16,7 @@
                 <th style="border: 1px solid black;">username</th>
                 <th style="border: 1px solid black;">email</th>
                 <th style="border: 1px solid black;">Phone</th>
+                <th style="border: 1px solid black;">Action</th>
             </tr>
         </thead>
         @foreach (var usr in Model)
@@ -25,6 +26,10 @@
                 <td style="border: 1px solid black;">@usr.username</td>
                 <td style="border: 1px solid black;">@usr.email</td>
                 <td style="border: 1px solid black;">@usr.phone</td>
+                <td style="border: 1px solid black;">
+                    <button class="btn btn-dark" data-toggle="ajax-modal" data-target="#editUser" data-url="@Url.Action("Edit", new{id=usr.id})">Edit</button>
+                    <button class="btn btn-danger" data-target="deleteUser" data-url="@Url.Action("Delete", new{id=usr.id})">Delete</button>
+                </td>
             </tr>
         }
     </table>

@@ -7,6 +7,7 @@ $(function () {
     var placeholderElement = $('#placeholderHere');
     $('button[data-toggle="ajax-modal"]').click(function (event) {
         var url = $(this).data('url');
+        console.log(url);
         $.get(url).done(function (data) {
             placeholderElement.html(data);
             placeholderElement.find('.modal').modal('show');
@@ -26,4 +27,17 @@ $(function () {
             console.error("Error: " + textStatus, errorThrown);
         })
     })
+
+    placeholderElement.on('click', '[data-dismiss="modal"]', function () {
+        placeholderElement.find('.modal').modal('hide');
+    })
 })  
+
+$(function () {
+    $('button[data-target="deleteUser"]').click(function (event) {
+        var url = $(this).data('url');
+        $.post(url).done(function () {
+            location.reload();
+        })
+    })
+})
