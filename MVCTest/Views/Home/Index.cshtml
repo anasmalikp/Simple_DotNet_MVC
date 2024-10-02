@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@model List<Users>
+<div id="placeholderHere"></div>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <br /><br />
+    <table style="border:1px solid black; border-collapse:collapse; width:30vw; margin:auto;">
+        <thead>
+            <tr>
+                <th style="border: 1px solid black;">Id</th>
+                <th style="border: 1px solid black;">username</th>
+                <th style="border: 1px solid black;">email</th>
+                <th style="border: 1px solid black;">Phone</th>
+            </tr>
+        </thead>
+        @foreach (var usr in Model)
+        {
+            <tr>
+                <td style="border: 1px solid black;">@usr.id</td>
+                <td style="border: 1px solid black;">@usr.username</td>
+                <td style="border: 1px solid black;">@usr.email</td>
+                <td style="border: 1px solid black;">@usr.phone</td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+
+<button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addUser" data-url="@Url.Action("Create")">
+    Create User
+</button>
